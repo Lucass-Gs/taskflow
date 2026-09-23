@@ -632,3 +632,17 @@ dialog::backdrop {
     scroll-behavior: auto;
   }
 }
+
+/* Editorial workbench identity */
+:root { --bg: #f4f1eb; --panel: #fffdf8; --ink: #242321; --muted: #716b61; --line: #ded8ce; --accent: #e65b3f; }
+body { background: #f4f1eb; color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+.app-shell { background: #f4f1eb; }
+.sidebar, header { background: #252525; color: #f8f4ec; }
+.brand { color: #f8f4ec; letter-spacing: .08em; }
+.panel, .stat, .column, .task, .login-card { background: var(--panel); border: 1px solid var(--line); border-radius: 3px; box-shadow: 0 8px 24px rgba(38,32,24,.06); }
+.column { border-top: 4px solid var(--accent); }
+.task { border-left: 3px solid var(--accent); }
+button.primary, .cta { background: var(--accent); border-radius: 3px; }
+.tag { color: var(--accent); letter-spacing: .12em; }
+.page-heading h1 { font-family: Georgia, serif; font-size: clamp(2rem,4vw,3.4rem); letter-spacing: -.04em; }
+.fine, .eyebrow { color: var(--muted); }
