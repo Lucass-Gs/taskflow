@@ -1,0 +1,6 @@
+CREATE TABLE workspaces(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),name text NOT NULL);
+CREATE TABLE memberships(workspace_id uuid REFERENCES workspaces(id),user_id uuid REFERENCES users(id),role text NOT NULL CHECK(role IN ('admin','member')),PRIMARY KEY(workspace_id,user_id));
+CREATE TABLE projects(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),workspace_id uuid NOT NULL REFERENCES workspaces(id),name text NOT NULL,UNIQUE(workspace_id,id));
+CREATE TABLE tasks(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),project_id uuid NOT NULL REFERENCES projects(id),title text NOT NULL CHECK(length(title) BETWEEN 1 AND 160),description text NOT NULL DEFAULT '',status text NOT NULL DEFAULT 'todo' CHECK(status IN ('todo','doing','done')),version int NOT NULL DEFAULT 1,created_at timestamptz NOT NULL DEFAULT now(),updated_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX tasks_project_status ON tasks(project_id,status,created_at DESC);
+CREATE TABLE audit(id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,workspace_id uuid NOT NULL REFERENCES workspaces(id),user_id uuid NOT NULL REFERENCES users(id),action text NOT NULL,resource_id uuid NOT NULL,created_at timestamptz NOT NULL DEFAULT now());
